@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package sugar.v1;
+
+import "google/protobuf/timestamp.proto";
+
+service Sugar {
+  rpc Subscribe(SubscribeRequest) returns (stream Update);
+}
+
+message SubscribeRequest {
+  map<string, Filter> filters = 1;
+}
+
+message Filter {
+  repeated bytes writes = 1;
+  repeated bytes accounts = 2;
+  repeated bytes signers = 3;
+}
+
+message Update {
+  oneof update {
+    SlotOpened slot = 1;
+    Transaction transaction = 2;
+  }
+}
+
+message SlotOpened {
+  uint64 slot = 1;
+  bytes leader = 2;
+}
+
+message Transaction {
+  uint64 slot = 1;
+  uint32 index = 2;
+  bytes leader = 3;
+  bytes signature = 4;
+  bytes payload = 5;
+  repeated string filters = 6;
+  google.protobuf.Timestamp received_at = 7;
+}
