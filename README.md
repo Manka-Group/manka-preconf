@@ -39,7 +39,3 @@ A preconfirmation carries no success or failed status: the leader sends it befor
 ## Filters
 
 At least one, up to 16 per stream and 1,024 keys across them. A filter matches a transaction that writes one of `writes`, mentions one of `accounts`, or is signed by one of `signers`. Keys are 32 raw bytes; in JSON they are base64.
-
-## Billing
-
-$50 per million delivered transactions, from your project's credit on [dashboard.manka.wtf](https://dashboard.manka.wtf). `SlotOpened` is free.
