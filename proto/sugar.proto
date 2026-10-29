@@ -16,6 +16,16 @@ message Filter {
   repeated bytes writes = 1;
   repeated bytes accounts = 2;
   repeated bytes signers = 3;
+  // Top-level instructions: the program and how its data begins.
+  repeated Instruction instructions = 4;
+  // Names from sugar's catalog: `pump_fun.buy`, an action such as `create`, or a venue such as `pump_swap`.
+  repeated string actions = 5;
+}
+
+message Instruction {
+  bytes program = 1;
+  // Prefix of the instruction data, at most 32 bytes. Empty matches every instruction of the program.
+  bytes discriminator = 2;
 }
 
 message Update {

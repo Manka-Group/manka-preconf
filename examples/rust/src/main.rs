@@ -15,10 +15,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let jupiter = bs58::decode("JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4").into_vec()?;
     let mut request = tonic::Request::new(SubscribeRequest {
-        filters: [(
-            "jupiter".to_string(),
-            Filter { accounts: vec![jupiter.into()], ..Default::default() },
-        )]
+        filters: [
+            (
+                "jupiter".to_string(),
+                Filter { accounts: vec![jupiter.into()], ..Default::default() },
+            ),
+            (
+                "launches".to_string(),
+                Filter { actions: vec!["create".to_string()], ..Default::default() },
+            ),
+        ]
         .into(),
     });
     request.metadata_mut().insert("x-api-key", key.parse()?);
